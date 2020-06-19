@@ -4,6 +4,7 @@ corresponding to one oriented, n-sided face.  Vertices listed clockwise as seen 
 this.faces = [ [vidx1, vidx2, vidx3] ]
 --]]
 local icosahedron = require(game:GetService("ReplicatedStorage"):WaitForChild("icosahedron"));
+local polyops = require(game:GetService("ReplicatedStorage"):WaitForChild("polyops"));
 
 local planet = icosahedron();
 print(unpack(planet:Normals()));

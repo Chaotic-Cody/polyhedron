@@ -91,3 +91,4 @@ function Polyflag.topoly()
     return poly; 
 end
 
+return Polyflag;
