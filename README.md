@@ -1,2 +1,2 @@
 # polyhedron
-Experimenting with polyhedrons and porting Polyhedronism (Levskaya) to Rblx.Lua
+Experimenting with Goldberg polyhedrons and porting portions of Polyhedronism (Levskaya) to Rblx.Lua.
