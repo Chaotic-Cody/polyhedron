@@ -17,9 +17,9 @@ function Polyhedron.new(faces, vertices, name)
 	local newPolyhedron = {};
 	setmetatable(newPolyhedron, Polyhedron);
 	
-	newPolyhedron.Faces = faces;
-	newPolyhedron.Vertices = vertices;
-  	newPolyhedron.Name = name;
+	newPolyhedron.Faces = faces and faces or {};
+	newPolyhedron.Vertices = vertices and vertices or {};
+  	newPolyhedron.Name = name and name or "";
   
   	return newPolyhedron;
 	
