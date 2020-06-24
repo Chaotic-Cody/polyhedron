@@ -51,4 +51,32 @@ function Polyops.kis(poly, apexdist)
     return newpoly;
 end
 
+--[[
+Dual
+
+The dual of a polyhedron is another mesh wherein:
+    - every face in the original becomes a vertex in the dual
+    - every vertex in the original becomes a face in the dual
+
+So N_faces, N_vertices = N_dualfaces, N_dualvertices
+
+The new vertex coordinates are convenient to set to the original face centroids.
+--]]
+function Polyops.dual(poly)
+    local f, i, v1, v2;
+
+    local flag = Polyflag.new();
+
+    local face = {}; -- make table of face as function of edge
+    for i = 1, #poly.Vertices do
+        face[i] = {};
+    end -- create empty associative table
+
+    for i = 1, #poly.Faces do
+        f = poly.Faces[i];
+        
+    end
+   
+end
+
 return Polyops;
