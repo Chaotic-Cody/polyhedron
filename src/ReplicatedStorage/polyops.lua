@@ -17,22 +17,6 @@ function intersect(set1, set2, set3)
     return nil;
 end
 
-// find first element common to 3 sets by brute force search
-const intersect = function(set1, set2, set3) {
-  for (let s1 of set1) {
-    for (let s2 of set2) {
-      if (s1 === s2) {
-        for (let s3 of set3) {
-          if (s1 === s3) {
-            return s1;
-          }
-        }
-      }
-    }
-  }
-  return null; // empty intersection
-};
-
 local Polyflag = require(game:GetService("ReplicatedStorage"):WaitForChild("polyflag"));
 Polyops = {};
 -- Conway's polyhedron operations
