@@ -133,4 +133,18 @@ function Polyops.dual(poly)
 
 end
 
+--[[
+Truncate
+
+Equivalent to dkd (dual, kis(0), dual)
+Creates a Goldberg Polyhedron with 32 faces, 90 edges, and 60 vertices from an icosahedron
+tI == dkdI
+to create another level Goldberg Polyhedron:
+tdtI
+--]]
+
+function Polyops.truncate(poly)
+    return Polyops.dual(Polyops.kis(Polyops.dual(poly)));
+end
+
 return Polyops;
