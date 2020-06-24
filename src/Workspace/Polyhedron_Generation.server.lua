@@ -14,7 +14,16 @@ planet:Scale(1.075269);
 for i, v in pairs(planet:Centers()) do
     print(v.magnitude);
 end
---
+--[[
 local newPlanet = Polyops.kis(planet);
+newPlanet.Position = newPlanet.Position + Vector3.new(0, 5, 0);
+newPlanet:Scale(2);
+newPlanet:Draw();
+--]]
+
+--
+local newPlanet = Polyops.dual(planet);
+newPlanet.Position = newPlanet.Position + Vector3.new(0, 5, 0);
+newPlanet:Scale(2);
 newPlanet:Draw();
 --]]
