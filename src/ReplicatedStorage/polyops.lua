@@ -1,3 +1,38 @@
+--[[
+Helper functions
+--]]
+-- fine the first element common to 3 sets by brute force
+function intersect(set1, set2, set3)
+    for _, s1 in pairs(set1) do
+        for _, s2 in pairs(set2) do
+            if (s1 == s2) then
+                for _, s3 in pairs(set3) do
+                    if (s1 == s3) then
+                        return s1;
+                    end
+                end
+            end
+        end
+    end
+    return nil;
+end
+
+// find first element common to 3 sets by brute force search
+const intersect = function(set1, set2, set3) {
+  for (let s1 of set1) {
+    for (let s2 of set2) {
+      if (s1 === s2) {
+        for (let s3 of set3) {
+          if (s1 === s3) {
+            return s1;
+          }
+        }
+      }
+    }
+  }
+  return null; // empty intersection
+};
+
 local Polyflag = require(game:GetService("ReplicatedStorage"):WaitForChild("polyflag"));
 Polyops = {};
 -- Conway's polyhedron operations
@@ -74,9 +109,44 @@ function Polyops.dual(poly)
 
     for i = 1, #poly.Faces do
         f = poly.Faces[i];
-        
-    end
+        v1 = f[#f]; -- previous vertex
+        for _, v2 in pairs(f) do
+            -- THIS ASSUMES that no 2 faces that share an edge share it in the same orientation!
+            -- which of course never happens for proper manifold meshes, so get your meshes right.
+            face[v1]["v"..tostring(v2)] = tostring(i);
+            v1 = v2;
+        end
+    end -- current becomes previous
    
+    local centers = poly:Centers();
+    for i = 1, #poly.Faces.length do
+        f = poly.Faces[i];
+        v1 = f[#f]; -- pervious vertex
+        for _, v2 in pairs(f) do
+            flag.newFlag(v1, face[v]["v"..tostring(v1)], tostring(i));
+            v1 = v2;
+        end
+    end -- current becomes previous
+
+    local dpoly = flag:topoly(); -- build topological dual from flags
+
+    -- match F index ordering to V index ordering on dual
+    local sortF = {};
+    for _, f in pairs(dpoly.Faces) do
+        local k = intersect(poly.Faces[f[1]], poly.Faces[f[2]], poly.Faces[f[3]]);
+        sortF[k] = f;
+    end
+
+    dpoly.Faces = sortF;
+
+    if (string.sub(poly.Name, 1, 1) ~= "d") then
+        dpoly.Name = "d"..poly.Name;
+    else
+        dpoly.Name = string.sub(dpoly.Name, 2)
+    end
+
+    return dpoly;
+
 end
 
 return Polyops;
