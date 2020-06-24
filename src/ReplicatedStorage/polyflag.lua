@@ -66,10 +66,12 @@ function Polyflag:topoly()
     local ctr = 1; -- first number the vertices, and store them in an array
     for i, _ in pairs(self.Vertidxs) do
         v = self.Vertidxs[i];
+        --[[
         print("this line >> ", ctr, i)
         print(unpack(poly.Vertices));
         print(poly.Vertices[ctr])
         print(self.Vertices[i])
+        --]]
         poly.Vertices[ctr] = self.Vertices[i];
         self.Vertidxs[i] = ctr;
         ctr = ctr + 1;
