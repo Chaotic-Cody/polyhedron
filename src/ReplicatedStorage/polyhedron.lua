@@ -89,6 +89,9 @@ function Polyhedron:Draw()
 		vert.Parent = planetModel;
 	end
 
+	print("Faces: ", #self.Faces);
+	print("Vertices: ", #self.Vertices);
+
 end
 
 return Polyhedron;
