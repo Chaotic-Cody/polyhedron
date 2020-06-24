@@ -12,14 +12,15 @@ local vmath = require(game:GetService("ReplicatedStorage"):WaitForChild("vmath")
 Polyhedron = {};
 Polyhedron.__index = Polyhedron;
 
-function Polyhedron.new(faces, vertices, name)
+function Polyhedron.new(faces, vertices, name, position)
 	
 	local newPolyhedron = {};
 	setmetatable(newPolyhedron, Polyhedron);
 	
 	newPolyhedron.Faces = faces and faces or {};
 	newPolyhedron.Vertices = vertices and vertices or {};
-  	newPolyhedron.Name = name and name or "";
+	newPolyhedron.Name = name and name or "";
+	newPolyhedron.Position = position and position or Vector3.new(0, 0, 0);
   
   	return newPolyhedron;
 	
@@ -70,12 +71,24 @@ function Polyhedron:Draw()
 		local tile = Instance.new("Part");
 		tile.CanCollide = false;
 		tile.Anchored = true;
-		tile.Name = "Polygon";
+		tile.Name = "PolygonCenter";
 		tile.Size = Vector3.new(0.2, 0.2, 0.2);
 		tile.BrickColor = BrickColor.new("Really red");
-		tile.CFrame = CFrame.new(center);
+		tile.CFrame = CFrame.new(center + self.Position);
 		tile.Parent = planetModel;
-  	end
+	end
+	  
+	for i, vertex in pairs(self.Vertices) do
+		local vert = Instance.new("Part");
+		vert.CanCollide = false;
+		vert.Anchored = true;
+		vert.Name = "PolygonVertex";
+		vert.Size = Vector3.new(0.2, 0.2, 0.2);
+		vert.BrickColor = BrickColor.new("Lime green");
+		vert.CFrame = CFrame.new(vertex + self.Position);
+		vert.Parent = planetModel;
+	end
+
 end
 
 return Polyhedron;
