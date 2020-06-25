@@ -38,7 +38,6 @@ end
     returns void
 --]]
 function Polyflag:newV(vertName, coordinates)
-    print(self);
     if (not self.Vertidxs[vertName]) then
         self.Vertidxs[vertName] = 0;
         self.Vertices[vertName] = coordinates;
