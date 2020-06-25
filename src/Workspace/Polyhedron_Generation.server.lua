@@ -7,7 +7,7 @@ local Icosahedron = require(game:GetService("ReplicatedStorage"):WaitForChild("i
 local Polyops = require(game:GetService("ReplicatedStorage"):WaitForChild("polyops"));
 
 local planet = Icosahedron();
-print(unpack(planet:Normals()));
+--print(unpack(planet:Normals()));
 --planet:Scale(5);
 planet:Scale(1.075269);
 --planet:Draw();
@@ -33,4 +33,12 @@ local newPlanet = Polyops.truncate(planet);
 newPlanet.Position = newPlanet.Position + Vector3.new(0, 5, 0);
 newPlanet:Scale(4);
 newPlanet:Draw();
+local faces = newPlanet.Faces;
+local centers = newPlanet:Centers();
+for i, face in pairs(faces) do
+    print("new face");
+    for j, index in pairs(face) do
+        print((centers[i] - newPlanet.Vertices[index]).magnitude);
+    end
+end
 --]]
