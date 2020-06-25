@@ -1,3 +1,5 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
 --[[
 Polyhedron class
 
@@ -8,6 +10,8 @@ edges = { Vector3.new() }
 --]]
 
 local vmath = require(game:GetService("ReplicatedStorage"):WaitForChild("vmath"));
+local hexagon = game.ReplicatedStorage:WaitForChild("Hexagon");
+local pentagon = game.ReplicatedStorage:WaitForChild("Pentagon");
 
 Polyhedron = {};
 Polyhedron.__index = Polyhedron;
@@ -67,7 +71,25 @@ end
 function Polyhedron:Draw()
 	local planetModel = Instance.new("Model");
 	planetModel.Parent = workspace;
-	for i, center in pairs(self:Centers()) do
+	local hexModel = Instance.new("Model");
+	hexModel.Parent = planetModel;
+	local pentModel = Instance.new("Model");
+	pentModel.Parent = planetModel;
+	
+	local centers = self:Centers();
+
+	for i, face in pairs(self.Faces) do
+		if #face == 5 then
+			local pent = pentagon:Clone();
+			local center = centers[i];
+			pent.Parent = pentModel;
+			pent.Size = Vector3.new();
+		elseif #face == 6 then
+			local hex = hexagon:Clone();
+		end
+	end
+	--[[
+	for i, center in pairs(centers) do
 		local tile = Instance.new("Part");
 		tile.CanCollide = false;
 		tile.Anchored = true;
@@ -88,7 +110,7 @@ function Polyhedron:Draw()
 		vert.CFrame = CFrame.new(vertex + self.Position);
 		vert.Parent = planetModel;
 	end
-
+	--]]
 	print("Faces: ", #self.Faces);
 	print("Vertices: ", #self.Vertices);
 
