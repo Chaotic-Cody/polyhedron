@@ -67,6 +67,8 @@ function Polyops.dual(poly)
 
     local flag = Polyflag.new();
 
+    print("taking dual of ", poly.Name);
+
     local face = {}; -- make table of face as function of edge
     for i = 1, #poly.Vertices do
         face[i] = {};
