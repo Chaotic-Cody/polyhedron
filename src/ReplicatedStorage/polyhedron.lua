@@ -1,72 +1,4 @@
 --[[
-	function positionHex(Vector3 from, Vector3 to)
-	returns CFrame
-	returns a CFrame matrix with orientation looking from -> to with YVector (rather than lookVector)
-]]
-function positionHex(from, to, vertex)
-	local fVec = (to - from).unit;
-	local randVec = Vector3.new(0, 1, 0);
-
-	local upVec = (vertex - from).unit;
-	local rightVec = upVec:Cross(fVec);
-	--local upVec = rightVec:Cross(fVec);
-
-	--return CFrame.fromMatrix(from, rightVec, upVec);
-	--[[
-	return CFrame.new(
-		from.X, from.Y, from.Z, -- from
-		rightVec.X, upVec.X, -fVec.X, -- right
-		rightVec.Y, upVec.Y, -fVec.Y, -- up
-		rightVec.Z, upVec.Z, -fVec.Z -- forward
-	);
-	--]]
-	return CFrame.new(
-		from.X, from.Y, from.Z, -- from
-		rightVec.X, fVec.X, -upVec.X, -- right
-		rightVec.Y, fVec.Y, -upVec.Y, -- up
-		rightVec.Z, fVec.Z, -upVec.Z -- forward
-	);
-end
-
---[[
-	function positionPent(Vector3 from, Vector3 to)
-	returns CFrame
-	returns a CFrame matrix with orientation looking from -> to with YVector (rather than lookVector)
-]]
-function positionPent(from, to, vertex)
-	local fVec = (to - from).unit;
-	--local randVec = Vector3.new(0, 1, 0);
-	--local randVec = (vertex - from).unit;
-
-	--local rightVec = fVec:Cross(randVec);
-	local rightVec = (vertex - from).unit;
-	local upVec = rightVec:Cross(fVec);
-
-	--[[
-	local fVec2 = (vertex - from).unit;
-	local randVec = Vector3.new(0, 1, 0);
-
-	local 
-	--]]
-
-	--return CFrame.fromMatrix(from, rightVec, upVec);
-	--[[
-	return CFrame.new(
-		from.X, from.Y, from.Z, -- from
-		rightVec.X, upVec.X, -fVec.X, -- right
-		rightVec.Y, upVec.Y, -fVec.Y, -- up
-		rightVec.Z, upVec.Z, -fVec.Z -- forward
-	);
-	--]]
-	return CFrame.new(
-		from.X, from.Y, from.Z, -- from
-		rightVec.X, fVec.X, upVec.X, -- right
-		rightVec.Y, fVec.Y, upVec.Y, -- up
-		rightVec.Z, fVec.Z, upVec.Z -- forward
-	);
-end
-
---[[
 Polyhedron class
 
 vertices = {Vector3.new(), ..}
@@ -77,6 +9,8 @@ edges = { Vector3.new() }
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage");
 local vmath = require(ReplicatedStorage:WaitForChild("vmath"));
+local trilib = require(ReplicatedStorage:WaitForChild("TriangleModule"));
+
 local hexagon = ReplicatedStorage:WaitForChild("Hexagon");
 local pentagon = ReplicatedStorage:WaitForChild("Pentagon");
 
