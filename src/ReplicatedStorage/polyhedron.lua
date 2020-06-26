@@ -159,45 +159,9 @@ function Polyhedron:Draw()
 
 	for i, face in pairs(self.Faces) do
 		if #face == 5 then
-			local pent = pentagon:Clone();
-			local center = centers[i] + self.Position;
-			local scale = ((self.Vertices[face[1]] + self.Position) - center).magnitude* 2;
-			local vertex = self.Vertices[face[1]] + self.Position;
 			
-			pent.Size = Vector3.new(scale, 0.1, scale);
-			pent.CFrame = positionPent(center, self.Position, vertex);
-			pent.Anchored = true;
-			pent.Parent = pentModel;
-
-			local vert = Instance.new("Part");
-			vert.CanCollide = false;
-			vert.Anchored = true;
-			vert.Name = "PentVertex";
-			vert.Size = Vector3.new(0.2, 0.2, 0.2);
-			vert.BrickColor = BrickColor.new("Lime green");
-			vert.CFrame = CFrame.new(vertex);
-			vert.Parent = planetModel;
 		elseif #face == 6 then
-			local hex = hexagon:Clone();
-			local center = centers[i] + self.Position;
-			local scale = ((self.Vertices[face[1]] + self.Position) - center).magnitude* 2;
-			local vertex = self.Vertices[face[1]] + self.Position;
-			print(scale);
 			
-			hex.Size = Vector3.new(scale, 0.1, scale);
-			--hex.Size = Vector3.new(1, 0.25, 1.155); -- stub
-			hex.CFrame = positionHex(center, self.Position, vertex);
-			hex.Anchored = true;
-			hex.Parent = hexModel;
-
-			local vert = Instance.new("Part");
-			vert.CanCollide = false;
-			vert.Anchored = true;
-			vert.Name = "HexVertex";
-			vert.Size = Vector3.new(0.2, 0.2, 0.2);
-			vert.BrickColor = BrickColor.new("Bright orange");
-			vert.CFrame = CFrame.new(vertex);
-			vert.Parent = planetModel;
 		end
 	end
 	--[[
