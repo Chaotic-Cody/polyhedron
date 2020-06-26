@@ -1,4 +1,31 @@
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+--[[
+	function positionHex(Vector3 from, Vector3 to)
+	returns CFrame
+	returns a CFrame matrix with orientation looking from -> to with YVector (rather than lookVector)
+]]
+function positionHex(from, to)
+	local fVec = (to - from).unit;
+	local randVec = Vector3.new(0, 1, 0);
+
+	local rightVec = fVec:Cross(randVec);
+	local upVec = rightVec:Cross(fVec);
+
+	--return CFrame.fromMatrix(from, rightVec, upVec);
+	--[[
+	return CFrame.new(
+		from.X, from.Y, from.Z, -- from
+		rightVec.X, upVec.X, -fVec.X, -- right
+		rightVec.Y, upVec.Y, -fVec.Y, -- up
+		rightVec.Z, upVec.Z, -fVec.Z -- forward
+	);
+	--]]
+	return CFrame.new(
+		from.X, from.Y, from.Z, -- from
+		rightVec.X, fVec.X, upVec.X, -- right
+		rightVec.Y, fVec.Y, upVec.Y, -- up
+		rightVec.Z, fVec.Z, upVec.Z -- forward
+	);
+end
 
 --[[
 Polyhedron class
@@ -9,9 +36,10 @@ faces = { {1, 2, 3} }
 edges = { Vector3.new() }
 --]]
 
-local vmath = require(game:GetService("ReplicatedStorage"):WaitForChild("vmath"));
-local hexagon = game.ReplicatedStorage:WaitForChild("Hexagon");
-local pentagon = game.ReplicatedStorage:WaitForChild("Pentagon");
+local ReplicatedStorage = game:GetService("ReplicatedStorage");
+local vmath = require(ReplicatedStorage:WaitForChild("vmath"));
+local hexagon = ReplicatedStorage:WaitForChild("Hexagon");
+local pentagon = ReplicatedStorage:WaitForChild("Pentagon");
 
 Polyhedron = {};
 Polyhedron.__index = Polyhedron;
@@ -71,21 +99,40 @@ end
 function Polyhedron:Draw()
 	local planetModel = Instance.new("Model");
 	planetModel.Parent = workspace;
+	planetModel.Name = "Planet";
 	local hexModel = Instance.new("Model");
 	hexModel.Parent = planetModel;
+	hexModel.Name = "Hexes";
 	local pentModel = Instance.new("Model");
 	pentModel.Parent = planetModel;
-	
+	pentModel.Name = "Pents";
+
+	local planetCenter = Instance.new("Part");
+	planetCenter.CanCollide = false;
+	planetCenter.Anchored = true;
+	planetCenter.Name = "PolygonCenter";
+	planetCenter.Size = Vector3.new(0.2, 0.2, 0.2);
+	planetCenter.BrickColor = BrickColor.new("Really red");
+	planetCenter.CFrame = CFrame.new(self.Position);
+	planetCenter.Parent = planetModel;
+
 	local centers = self:Centers();
 
 	for i, face in pairs(self.Faces) do
 		if #face == 5 then
 			local pent = pentagon:Clone();
-			local center = centers[i];
+			local center = centers[i] + self.Position;
+			pent.Size = Vector3.new(1, 0.25, 1.155); -- stub
+			pent.CFrame = positionHex(center, self.Position);
+			pent.Anchored = true;
 			pent.Parent = pentModel;
-			pent.Size = Vector3.new();
 		elseif #face == 6 then
 			local hex = hexagon:Clone();
+			local center = centers[i] + self.Position;
+			hex.Size = Vector3.new(1, 0.25, 1.155); -- stub
+			hex.CFrame = positionHex(center, self.Position);
+			hex.Anchored = true;
+			hex.Parent = hexModel;
 		end
 	end
 	--[[

@@ -33,6 +33,8 @@ local newPlanet = Polyops.truncate(planet);
 newPlanet.Position = newPlanet.Position + Vector3.new(0, 5, 0);
 newPlanet:Scale(4);
 newPlanet:Draw();
+--]]
+--[[
 local faces = newPlanet.Faces;
 local centers = newPlanet:Centers();
 for i, face in pairs(faces) do
