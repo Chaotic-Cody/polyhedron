@@ -3,12 +3,51 @@
 	returns CFrame
 	returns a CFrame matrix with orientation looking from -> to with YVector (rather than lookVector)
 ]]
-function positionHex(from, to)
+function positionHex(from, to, vertex)
 	local fVec = (to - from).unit;
 	local randVec = Vector3.new(0, 1, 0);
 
-	local rightVec = fVec:Cross(randVec);
+	local upVec = (vertex - from).unit;
+	local rightVec = upVec:Cross(fVec);
+	--local upVec = rightVec:Cross(fVec);
+
+	--return CFrame.fromMatrix(from, rightVec, upVec);
+	--[[
+	return CFrame.new(
+		from.X, from.Y, from.Z, -- from
+		rightVec.X, upVec.X, -fVec.X, -- right
+		rightVec.Y, upVec.Y, -fVec.Y, -- up
+		rightVec.Z, upVec.Z, -fVec.Z -- forward
+	);
+	--]]
+	return CFrame.new(
+		from.X, from.Y, from.Z, -- from
+		rightVec.X, fVec.X, -upVec.X, -- right
+		rightVec.Y, fVec.Y, -upVec.Y, -- up
+		rightVec.Z, fVec.Z, -upVec.Z -- forward
+	);
+end
+
+--[[
+	function positionPent(Vector3 from, Vector3 to)
+	returns CFrame
+	returns a CFrame matrix with orientation looking from -> to with YVector (rather than lookVector)
+]]
+function positionPent(from, to, vertex)
+	local fVec = (to - from).unit;
+	--local randVec = Vector3.new(0, 1, 0);
+	--local randVec = (vertex - from).unit;
+
+	--local rightVec = fVec:Cross(randVec);
+	local rightVec = (vertex - from).unit;
 	local upVec = rightVec:Cross(fVec);
+
+	--[[
+	local fVec2 = (vertex - from).unit;
+	local randVec = Vector3.new(0, 1, 0);
+
+	local 
+	--]]
 
 	--return CFrame.fromMatrix(from, rightVec, upVec);
 	--[[
@@ -122,17 +161,43 @@ function Polyhedron:Draw()
 		if #face == 5 then
 			local pent = pentagon:Clone();
 			local center = centers[i] + self.Position;
-			pent.Size = Vector3.new(1, 0.25, 1.155); -- stub
-			pent.CFrame = positionHex(center, self.Position);
+			local scale = ((self.Vertices[face[1]] + self.Position) - center).magnitude* 2;
+			local vertex = self.Vertices[face[1]] + self.Position;
+			
+			pent.Size = Vector3.new(scale, 0.1, scale);
+			pent.CFrame = positionPent(center, self.Position, vertex);
 			pent.Anchored = true;
 			pent.Parent = pentModel;
+
+			local vert = Instance.new("Part");
+			vert.CanCollide = false;
+			vert.Anchored = true;
+			vert.Name = "PentVertex";
+			vert.Size = Vector3.new(0.2, 0.2, 0.2);
+			vert.BrickColor = BrickColor.new("Lime green");
+			vert.CFrame = CFrame.new(vertex);
+			vert.Parent = planetModel;
 		elseif #face == 6 then
 			local hex = hexagon:Clone();
 			local center = centers[i] + self.Position;
-			hex.Size = Vector3.new(1, 0.25, 1.155); -- stub
-			hex.CFrame = positionHex(center, self.Position);
+			local scale = ((self.Vertices[face[1]] + self.Position) - center).magnitude* 2;
+			local vertex = self.Vertices[face[1]] + self.Position;
+			print(scale);
+			
+			hex.Size = Vector3.new(scale, 0.1, scale);
+			--hex.Size = Vector3.new(1, 0.25, 1.155); -- stub
+			hex.CFrame = positionHex(center, self.Position, vertex);
 			hex.Anchored = true;
 			hex.Parent = hexModel;
+
+			local vert = Instance.new("Part");
+			vert.CanCollide = false;
+			vert.Anchored = true;
+			vert.Name = "HexVertex";
+			vert.Size = Vector3.new(0.2, 0.2, 0.2);
+			vert.BrickColor = BrickColor.new("Bright orange");
+			vert.CFrame = CFrame.new(vertex);
+			vert.Parent = planetModel;
 		end
 	end
 	--[[
