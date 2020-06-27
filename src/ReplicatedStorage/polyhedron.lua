@@ -7,6 +7,17 @@ faces = { {1, 2, 3} }
 edges = { Vector3.new() }
 --]]
 
+local PolygonNames = {
+	"Triangle",
+	"Square",
+	"Pentagon",
+	"Hexagon",
+	"Heptagon",
+	"Octagon",
+	"Nonagon",
+	"Decagon"
+}
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage");
 local vmath = require(ReplicatedStorage:WaitForChild("vmath"));
 local trilib = require(ReplicatedStorage:WaitForChild("TriangleModule"));
@@ -16,8 +27,6 @@ local pentagon = ReplicatedStorage:WaitForChild("Pentagon");
 
 Polyhedron = {};
 Polyhedron.__index = Polyhedron;
-
-print("waitforchilds done");
 
 function Polyhedron.new(faces, vertices, name, position)
 	
@@ -97,41 +106,25 @@ function Polyhedron:Draw()
 	local centers = self:Centers();
 
 	for i, face in pairs(self.Faces) do
+
+		local polyModel = Instance.new("Model");
+		polyModel.Name = PolygonNames[#face-2];
+		
 		if #face == 5 then
-
-			local pentagon = Instance.new("Model");
-			pentagon.Name = "Pentagon";
-			pentagon.Parent = pentModel;
-
-			local v1 = self.Vertices[face[1]] + self.Position;
-			local v2 = self.Vertices[face[2]] + self.Position;
-			local v3 = self.Vertices[face[3]] + self.Position;
-			local v4 = self.Vertices[face[4]] + self.Position;
-			local v5 = self.Vertices[face[5]] + self.Position;
-
-			trilib.DrawTriangle(v1, v2, v3, pentagon);
-			trilib.DrawTriangle(v1, v3, v4, pentagon);
-			trilib.DrawTriangle(v1, v4, v5, pentagon);
-
+			polyModel.Parent = pentModel;
 		elseif #face == 6 then
-
-			local hexagon = Instance.new("Model");
-			hexagon.Name = "Hexagon";
-			hexagon.Parent = hexModel;
-
-			local v1 = self.Vertices[face[1]] + self.Position;
-			local v2 = self.Vertices[face[2]] + self.Position;
-			local v3 = self.Vertices[face[3]] + self.Position;
-			local v4 = self.Vertices[face[4]] + self.Position;
-			local v5 = self.Vertices[face[5]] + self.Position;
-			local v6 = self.Vertices[face[6]] + self.Position;
-
-			trilib.DrawTriangle(v1, v2, v3, hexagon);
-			trilib.DrawTriangle(v1, v3, v4, hexagon);
-			trilib.DrawTriangle(v1, v4, v6, hexagon);
-			trilib.DrawTriangle(v4, v5, v6, hexagon);
-
+			polyModel.Parent = hexModel;
+		else
+			polyModel.Parent = planetModel;
 		end
+
+		for j = 2, #face-1 do
+			local v1 = self.Vertices[face[1]] + self.Position;
+			local v2 = self.Vertices[face[j]] + self.Position;
+			local v3 = self.Vertices[face[j+1]] + self.Position;
+			trilib.DrawTriangle(v1, v2, v3, polyModel);
+		end
+		
 	end
 	print("Faces: ", #self.Faces);
 	print("Vertices: ", #self.Vertices);
