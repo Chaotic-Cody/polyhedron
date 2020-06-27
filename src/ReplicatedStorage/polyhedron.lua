@@ -60,6 +60,9 @@ function Polyhedron:Normals()
   	return normalsArray;
 end
 
+--[[
+	scaleFactor is a reprentation of the distance from a vertex to the center of the polyhedron
+--]]
 function Polyhedron:Scale(scaleFactor)
 	for i, vert in pairs(self.Vertices) do
 		self.Vertices[i] = self.Vertices[i] * scaleFactor;
