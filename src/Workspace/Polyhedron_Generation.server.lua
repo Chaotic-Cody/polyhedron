@@ -29,7 +29,7 @@ newPlanet:Draw();
 --]]
 
 -- Testing truncate
-local newPlanet = Polyops.truncate(planet);
+local newPlanet = Polyops.truncate(Polyops.dual(Polyops.truncate(planet)));
 newPlanet.Position = newPlanet.Position + Vector3.new(0, 5, 0);
 newPlanet:Scale(4);
 newPlanet:Draw();
