@@ -130,29 +130,6 @@ function Polyhedron:Draw()
 
 		end
 	end
-	--[[
-	for i, center in pairs(centers) do
-		local tile = Instance.new("Part");
-		tile.CanCollide = false;
-		tile.Anchored = true;
-		tile.Name = "PolygonCenter";
-		tile.Size = Vector3.new(0.2, 0.2, 0.2);
-		tile.BrickColor = BrickColor.new("Really red");
-		tile.CFrame = CFrame.new(center + self.Position);
-		tile.Parent = planetModel;
-	end
-	  
-	for i, vertex in pairs(self.Vertices) do
-		local vert = Instance.new("Part");
-		vert.CanCollide = false;
-		vert.Anchored = true;
-		vert.Name = "PolygonVertex";
-		vert.Size = Vector3.new(0.2, 0.2, 0.2);
-		vert.BrickColor = BrickColor.new("Lime green");
-		vert.CFrame = CFrame.new(vertex + self.Position);
-		vert.Parent = planetModel;
-	end
-	--]]
 	print("Faces: ", #self.Faces);
 	print("Vertices: ", #self.Vertices);
 
