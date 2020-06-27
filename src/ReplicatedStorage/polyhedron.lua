@@ -1,33 +1,4 @@
 --[[
-	function positionHex(Vector3 from, Vector3 to)
-	returns CFrame
-	returns a CFrame matrix with orientation looking from -> to with YVector (rather than lookVector)
-]]
-function positionHex(from, to)
-	local fVec = (to - from).unit;
-	local randVec = Vector3.new(0, 1, 0);
-
-	local rightVec = fVec:Cross(randVec);
-	local upVec = rightVec:Cross(fVec);
-
-	--return CFrame.fromMatrix(from, rightVec, upVec);
-	--[[
-	return CFrame.new(
-		from.X, from.Y, from.Z, -- from
-		rightVec.X, upVec.X, -fVec.X, -- right
-		rightVec.Y, upVec.Y, -fVec.Y, -- up
-		rightVec.Z, upVec.Z, -fVec.Z -- forward
-	);
-	--]]
-	return CFrame.new(
-		from.X, from.Y, from.Z, -- from
-		rightVec.X, fVec.X, upVec.X, -- right
-		rightVec.Y, fVec.Y, upVec.Y, -- up
-		rightVec.Z, fVec.Z, upVec.Z -- forward
-	);
-end
-
---[[
 Polyhedron class
 
 vertices = {Vector3.new(), ..}
@@ -38,11 +9,15 @@ edges = { Vector3.new() }
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage");
 local vmath = require(ReplicatedStorage:WaitForChild("vmath"));
+local trilib = require(ReplicatedStorage:WaitForChild("TriangleModule"));
+
 local hexagon = ReplicatedStorage:WaitForChild("Hexagon");
 local pentagon = ReplicatedStorage:WaitForChild("Pentagon");
 
 Polyhedron = {};
 Polyhedron.__index = Polyhedron;
+
+print("waitforchilds done");
 
 function Polyhedron.new(faces, vertices, name, position)
 	
@@ -112,7 +87,7 @@ function Polyhedron:Draw()
 	planetCenter.Anchored = true;
 	planetCenter.Name = "PolygonCenter";
 	planetCenter.Size = Vector3.new(0.2, 0.2, 0.2);
-	planetCenter.BrickColor = BrickColor.new("Really red");
+	planetCenter.BrickColor = BrickColor.new("Lime green");
 	planetCenter.CFrame = CFrame.new(self.Position);
 	planetCenter.Parent = planetModel;
 
@@ -120,44 +95,41 @@ function Polyhedron:Draw()
 
 	for i, face in pairs(self.Faces) do
 		if #face == 5 then
-			local pent = pentagon:Clone();
-			local center = centers[i] + self.Position;
-			pent.Size = Vector3.new(1, 0.25, 1.155); -- stub
-			pent.CFrame = positionHex(center, self.Position);
-			pent.Anchored = true;
-			pent.Parent = pentModel;
+
+			local pentagon = Instance.new("Model");
+			pentagon.Name = "Pentagon";
+			pentagon.Parent = pentModel;
+
+			local v1 = self.Vertices[face[1]] + self.Position;
+			local v2 = self.Vertices[face[2]] + self.Position;
+			local v3 = self.Vertices[face[3]] + self.Position;
+			local v4 = self.Vertices[face[4]] + self.Position;
+			local v5 = self.Vertices[face[5]] + self.Position;
+
+			trilib.DrawTriangle(v1, v2, v3, pentagon);
+			trilib.DrawTriangle(v1, v3, v4, pentagon);
+			trilib.DrawTriangle(v1, v4, v5, pentagon);
+
 		elseif #face == 6 then
-			local hex = hexagon:Clone();
-			local center = centers[i] + self.Position;
-			hex.Size = Vector3.new(1, 0.25, 1.155); -- stub
-			hex.CFrame = positionHex(center, self.Position);
-			hex.Anchored = true;
-			hex.Parent = hexModel;
+
+			local hexagon = Instance.new("Model");
+			hexagon.Name = "Hexagon";
+			hexagon.Parent = hexModel;
+
+			local v1 = self.Vertices[face[1]] + self.Position;
+			local v2 = self.Vertices[face[2]] + self.Position;
+			local v3 = self.Vertices[face[3]] + self.Position;
+			local v4 = self.Vertices[face[4]] + self.Position;
+			local v5 = self.Vertices[face[5]] + self.Position;
+			local v6 = self.Vertices[face[6]] + self.Position;
+
+			trilib.DrawTriangle(v1, v2, v3, hexagon);
+			trilib.DrawTriangle(v1, v3, v4, hexagon);
+			trilib.DrawTriangle(v1, v4, v6, hexagon);
+			trilib.DrawTriangle(v4, v5, v6, hexagon);
+
 		end
 	end
-	--[[
-	for i, center in pairs(centers) do
-		local tile = Instance.new("Part");
-		tile.CanCollide = false;
-		tile.Anchored = true;
-		tile.Name = "PolygonCenter";
-		tile.Size = Vector3.new(0.2, 0.2, 0.2);
-		tile.BrickColor = BrickColor.new("Really red");
-		tile.CFrame = CFrame.new(center + self.Position);
-		tile.Parent = planetModel;
-	end
-	  
-	for i, vertex in pairs(self.Vertices) do
-		local vert = Instance.new("Part");
-		vert.CanCollide = false;
-		vert.Anchored = true;
-		vert.Name = "PolygonVertex";
-		vert.Size = Vector3.new(0.2, 0.2, 0.2);
-		vert.BrickColor = BrickColor.new("Lime green");
-		vert.CFrame = CFrame.new(vertex + self.Position);
-		vert.Parent = planetModel;
-	end
-	--]]
 	print("Faces: ", #self.Faces);
 	print("Vertices: ", #self.Vertices);
 
