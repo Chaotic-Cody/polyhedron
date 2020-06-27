@@ -8,6 +8,7 @@ I adapted a lot of code from Levskaya's polyHédronisme, including the creation 
 Implementing preliminary vertex and face center drawing.
 
 Green = vertex
+
 Red = face center
 
 ![](https://i.imgur.com/o1FHQHp.png)
