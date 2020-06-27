@@ -11,9 +11,11 @@ local planet = Icosahedron();
 --planet:Scale(5);
 planet:Scale(1.075269);
 --planet:Draw();
+--[[ Testing structural integrity (distance of points from center)
 for i, v in pairs(planet:Centers()) do
     print(v.magnitude);
 end
+--]]
 --[[ Testing kis
 local newPlanet = Polyops.kis(planet);
 newPlanet.Position = newPlanet.Position + Vector3.new(0, 5, 0);
