@@ -2,16 +2,17 @@ local TriangleModule = {
     --[[
     Vector3 A, B, and C
     DataModel Parent 
+    [optional] Vector3 center
     ]]	
-        drawTriangle = function(a, b, c, parent)
+        DrawTriangle = function(a, b, c, parent, center)
             local wedge = Instance.new("WedgePart"); -- Make the wedge we'll need later
             wedge.Anchored = true;
             wedge.TopSurface = Enum.SurfaceType.Smooth;
             wedge.BottomSurface = Enum.SurfaceType.Smooth;
-            wedge.Material = "Glass";
-            wedge.Color = Color3.new(0, 110/255, 255/255);
-            wedge.Transparency = 1;
-            wedge.CanCollide = false;
+            wedge.Material = "SmoothPlastic";
+            --wedge.Color = Color3.new(0, 110/255, 255/255);
+            wedge.Transparency = 0;
+            wedge.CanCollide = true;
             local edges = {
                 {longest = (c - b), other = (a - b), position = b};
                 {longest = (a - c), other = (b - c), position = c};
@@ -44,6 +45,15 @@ local TriangleModule = {
                 right.y, up.y, -back.y,
                 right.z, up.z, -back.z
             );
+            --
+            if center then
+                print(center);
+                cf1 = cf1 + cf1.RightVector * 0.1;
+                cf2 = cf2 + cf2.RightVector * -0.1;
+                --cf1 = cf1 + (cf1.Position - center) * (0.1);
+                --cf2 = cf2 + (cf2.Position - center) * (0.1);
+            end
+            --]]
             -- put it all together by creating the wedges
             local model = Instance.new("Model");
             model.Parent = parent;
@@ -66,7 +76,7 @@ local TriangleModule = {
     Vector3 A, B, and C
     Model Triangle 
     ]]	
-        updateTriangle = function(a, b, c, triangle)
+        UpdateTriangle = function(a, b, c, triangle)
             local edges = {
                 {longest = (c - b), other = (a - b), position = b};
                 {longest = (a - c), other = (b - c), position = c};

@@ -17,6 +17,8 @@ local pentagon = ReplicatedStorage:WaitForChild("Pentagon");
 Polyhedron = {};
 Polyhedron.__index = Polyhedron;
 
+print("waitforchilds done");
+
 function Polyhedron.new(faces, vertices, name, position)
 	
 	local newPolyhedron = {};
@@ -85,7 +87,7 @@ function Polyhedron:Draw()
 	planetCenter.Anchored = true;
 	planetCenter.Name = "PolygonCenter";
 	planetCenter.Size = Vector3.new(0.2, 0.2, 0.2);
-	planetCenter.BrickColor = BrickColor.new("Really red");
+	planetCenter.BrickColor = BrickColor.new("Lime green");
 	planetCenter.CFrame = CFrame.new(self.Position);
 	planetCenter.Parent = planetModel;
 
@@ -93,9 +95,39 @@ function Polyhedron:Draw()
 
 	for i, face in pairs(self.Faces) do
 		if #face == 5 then
-			
+
+			local pentagon = Instance.new("Model");
+			pentagon.Name = "Pentagon";
+			pentagon.Parent = pentModel;
+
+			local v1 = self.Vertices[face[1]] + self.Position;
+			local v2 = self.Vertices[face[2]] + self.Position;
+			local v3 = self.Vertices[face[3]] + self.Position;
+			local v4 = self.Vertices[face[4]] + self.Position;
+			local v5 = self.Vertices[face[5]] + self.Position;
+
+			trilib.DrawTriangle(v1, v2, v3, pentagon, self.Position);
+			trilib.DrawTriangle(v1, v3, v4, pentagon, self.Position);
+			trilib.DrawTriangle(v1, v4, v5, pentagon, self.Position);
+
 		elseif #face == 6 then
-			
+
+			local hexagon = Instance.new("Model");
+			hexagon.Name = "Hexagon";
+			hexagon.Parent = hexModel;
+
+			local v1 = self.Vertices[face[1]] + self.Position;
+			local v2 = self.Vertices[face[2]] + self.Position;
+			local v3 = self.Vertices[face[3]] + self.Position;
+			local v4 = self.Vertices[face[4]] + self.Position;
+			local v5 = self.Vertices[face[5]] + self.Position;
+			local v6 = self.Vertices[face[6]] + self.Position;
+
+			trilib.DrawTriangle(v1, v2, v3, hexagon, self.Position);
+			trilib.DrawTriangle(v1, v3, v4, hexagon, self.Position);
+			trilib.DrawTriangle(v1, v4, v6, hexagon, self.Position);
+			trilib.DrawTriangle(v4, v5, v6, hexagon, self.Position);
+
 		end
 	end
 	--[[
