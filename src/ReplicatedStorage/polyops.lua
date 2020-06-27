@@ -47,6 +47,7 @@ function Polyops.kis(poly, apexdist)
 
     local newpoly = flag:topoly();
     newpoly.Name = "k"..(n==0 and "" or tostring(n))..poly.Name;
+    newpoly.Position = poly.Position;
 
     return newpoly;
 end
@@ -100,6 +101,7 @@ function Polyops.dual(poly)
     end -- current becomes previous
 
     local dpoly = flag:topoly(); -- build topological dual from flags
+    dpoly.Position = poly.Position;
 
     if (string.sub(poly.Name, 1, 1) ~= "d") then
         dpoly.Name = "d"..poly.Name;
