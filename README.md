@@ -31,6 +31,11 @@ The above example is a truncated icosahedron, but by using the dual and triakis 
 
 ![](https://i.imgur.com/vSbeDGl.png)
 
+## Inspiration
+Balancing Monkey Games - 
+Before We Leave -
+https://www.youtube.com/watch?v=m-A0yXP50d4
+
 ## Resources & credits
 Anselm Levskaya - 
 polyHédronisme - 
