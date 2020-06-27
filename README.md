@@ -32,13 +32,13 @@ The above example is a truncated icosahedron, but by using the dual and triakis 
 ![](https://i.imgur.com/vSbeDGl.png)
 
 ## Resources & credits
-Anselm Levskaya
-polyHédronisme
+Anselm Levskaya - 
+polyHédronisme - 
 https://github.com/levskaya/polyhedronisme
 
-hkrish
-StackOverflow
+hkrish - 
+StackOverflow - 
 https://stackoverflow.com/a/47455940
 
-Conway polyhedron notation
+Conway polyhedron notation - 
 https://en.wikipedia.org/wiki/Conway_polyhedron_notation
