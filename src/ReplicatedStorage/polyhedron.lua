@@ -106,9 +106,9 @@ function Polyhedron:Draw()
 			local v4 = self.Vertices[face[4]] + self.Position;
 			local v5 = self.Vertices[face[5]] + self.Position;
 
-			trilib.DrawTriangle(v1, v2, v3, pentagon, self.Position);
-			trilib.DrawTriangle(v1, v3, v4, pentagon, self.Position);
-			trilib.DrawTriangle(v1, v4, v5, pentagon, self.Position);
+			trilib.DrawTriangle(v1, v2, v3, pentagon);
+			trilib.DrawTriangle(v1, v3, v4, pentagon);
+			trilib.DrawTriangle(v1, v4, v5, pentagon);
 
 		elseif #face == 6 then
 
@@ -123,10 +123,10 @@ function Polyhedron:Draw()
 			local v5 = self.Vertices[face[5]] + self.Position;
 			local v6 = self.Vertices[face[6]] + self.Position;
 
-			trilib.DrawTriangle(v1, v2, v3, hexagon, self.Position);
-			trilib.DrawTriangle(v1, v3, v4, hexagon, self.Position);
-			trilib.DrawTriangle(v1, v4, v6, hexagon, self.Position);
-			trilib.DrawTriangle(v4, v5, v6, hexagon, self.Position);
+			trilib.DrawTriangle(v1, v2, v3, hexagon);
+			trilib.DrawTriangle(v1, v3, v4, hexagon);
+			trilib.DrawTriangle(v1, v4, v6, hexagon);
+			trilib.DrawTriangle(v4, v5, v6, hexagon);
 
 		end
 	end
