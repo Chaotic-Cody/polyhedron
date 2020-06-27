@@ -104,7 +104,7 @@ function Polyops.dual(poly)
     if (string.sub(poly.Name, 1, 1) ~= "d") then
         dpoly.Name = "d"..poly.Name;
     else
-        dpoly.Name = string.sub(dpoly.Name, 2)
+        dpoly.Name = string.sub(poly.Name, 2)
     end
 
     return dpoly;
