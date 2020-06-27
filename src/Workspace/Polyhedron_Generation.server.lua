@@ -6,19 +6,21 @@ this.faces = [ [vidx1, vidx2, vidx3] ]
 local Icosahedron = require(game:GetService("ReplicatedStorage"):WaitForChild("icosahedron"));
 local Polyops = require(game:GetService("ReplicatedStorage"):WaitForChild("polyops"));
 
+-- Testing icosahedron seed
 local planet = Icosahedron();
---print(unpack(planet:Normals()));
---planet:Scale(5);
+planet.Position = planet.Position + Vector3.new(0, 5, 0);
 planet:Scale(1.075269);
+--planet:Scale(5);
 --planet:Draw();
+--]]
 --[[ Testing structural integrity (distance of points from center)
 for i, v in pairs(planet:Centers()) do
     print(v.magnitude);
 end
 --]]
+
 --[[ Testing kis
 local newPlanet = Polyops.kis(planet);
-newPlanet.Position = newPlanet.Position + Vector3.new(0, 5, 0);
 newPlanet:Scale(2);
 newPlanet:Draw();
 --]]
