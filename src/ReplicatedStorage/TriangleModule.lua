@@ -4,7 +4,8 @@ local TriangleModule = {
     DataModel Parent 
     [optional] Vector3 center
     ]]	
-        DrawTriangle = function(a, b, c, parent, center)
+        DrawTriangle = function(a, b, c, parent, width)
+            local width = width and width or 0.2;
             local wedge = Instance.new("WedgePart"); -- Make the wedge we'll need later
             wedge.Anchored = true;
             wedge.TopSurface = Enum.SurfaceType.Smooth;
@@ -34,26 +35,19 @@ local TriangleModule = {
             local back = edge.longest.unit;
             -- put together the cframes
             local cf1 = CFrame.new( -- wedge1 cframe
-                p1.x, p1.y, p1.z,
+                p1.x + (-right.x * (width/2)), p1.y + (-right.y * (width/2)), p1.z + (-right.z * (width/2)),
                 -right.x, up.x, back.x,
                 -right.y, up.y, back.y,
                 -right.z, up.z, back.z
             );
             local cf2 = CFrame.new( -- wedge2 cframe
-                p2.x, p2.y, p2.z,
+                p2.x + (right.x * (-width/2)), p2.y + (right.y * (-width/2)), p2.z + (right.z * (-width/2)),
                 right.x, up.x, -back.x,
                 right.y, up.y, -back.y,
                 right.z, up.z, -back.z
             );
-            --
-            if center then
-                print(center);
-                cf1 = cf1 + cf1.RightVector * 0.1;
-                cf2 = cf2 + cf2.RightVector * -0.1;
-                --cf1 = cf1 + (cf1.Position - center) * (0.1);
-                --cf2 = cf2 + (cf2.Position - center) * (0.1);
-            end
-            --]]
+            -- cf1 = cf1 + cf1.RightVector * (width/2);
+            -- cf2 = cf2 + cf2.RightVector * (-width/2);
             -- put it all together by creating the wedges
             local model = Instance.new("Model");
             model.Parent = parent;
