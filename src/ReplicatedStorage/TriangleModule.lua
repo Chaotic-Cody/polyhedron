@@ -46,6 +46,21 @@ local TriangleModule = {
                 right.y, up.y, -back.y,
                 right.z, up.z, -back.z
             );
+            --]]
+            --[[
+            local cf1 = CFrame.new( -- wedge1 cframe
+            p1.x, p1.y, p1.z,
+            -right.x, up.x, back.x,
+            -right.y, up.y, back.y,
+            -right.z, up.z, back.z
+            );
+            local cf2 = CFrame.new( -- wedge2 cframe
+                p2.x, p2.y, p2.z,
+                right.x, up.x, -back.x,
+                right.y, up.y, -back.y,
+                right.z, up.z, -back.z
+            );
+            --]]
             -- cf1 = cf1 + cf1.RightVector * (width/2);
             -- cf2 = cf2 + cf2.RightVector * (-width/2);
             -- put it all together by creating the wedges
@@ -56,8 +71,8 @@ local TriangleModule = {
             w1.Name = "Wedge1";
             local w2 = wedge:Clone();
             w2.Name = "Wedge2";
-            w1.Size = Vector3.new(0.2, s1.y, s1.x);
-            w2.Size = Vector3.new(0.2, s2.y, s2.x);
+            w1.Size = Vector3.new(width, s1.y, s1.x);
+            w2.Size = Vector3.new(width, s2.y, s2.x);
             w1.CFrame = cf1;
             w2.CFrame = cf2;
             w1.Parent = model;
