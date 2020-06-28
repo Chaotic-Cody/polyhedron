@@ -22,9 +22,6 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage");
 local vmath = require(ReplicatedStorage:WaitForChild("vmath"));
 local trilib = require(ReplicatedStorage:WaitForChild("TriangleModule"));
 
-local hexagon = ReplicatedStorage:WaitForChild("Hexagon");
-local pentagon = ReplicatedStorage:WaitForChild("Pentagon");
-
 Polyhedron = {};
 Polyhedron.__index = Polyhedron;
 
@@ -37,6 +34,10 @@ function Polyhedron.new(faces, vertices, name, position)
 	newPolyhedron.Vertices = vertices and vertices or {};
 	newPolyhedron.Name = name and name or "";
 	newPolyhedron.Position = position and position or Vector3.new(0, 0, 0);
+	-- newPolyhedron.Radius = radius; -- stub
+
+	-- Part metadata
+	-- add private member for physical model
   
   	return newPolyhedron;
 	
