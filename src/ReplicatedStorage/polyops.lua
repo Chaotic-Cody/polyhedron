@@ -11,7 +11,7 @@ only kis n-sided faces, but n==0 means kis all.
 function Polyops.kis(poly, apexdist)
     local i = 1;
     local n = 0;
-    local apexdist = apexdist and apexdist or 0.1;
+    local apexdist = apexdist and apexdist or 0;
 
     local flag = Polyflag.new();
 
