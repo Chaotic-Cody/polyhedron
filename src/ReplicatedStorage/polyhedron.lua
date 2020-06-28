@@ -122,9 +122,9 @@ function Polyhedron:Draw()
 			local v1 = self.Vertices[face[1]] + self.Position;
 			local v2 = self.Vertices[face[j]] + self.Position;
 			local v3 = self.Vertices[face[j+1]] + self.Position;
-			trilib.DrawTriangle(v1, v2, v3, polyModel);
+			trilib.DrawTriangle(v1, v2, v3, polyModel, 0.2);
 		end
-		
+
 	end
 	print("Faces: ", #self.Faces);
 	print("Vertices: ", #self.Vertices);
