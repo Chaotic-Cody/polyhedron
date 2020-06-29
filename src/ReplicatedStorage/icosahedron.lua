@@ -23,6 +23,7 @@ function icosahedron()
     };
     local name = "I";
     local poly = Polyhedron.new(faces, vertices, name);
+    poly:Scale(1.075269); -- make all vertices approx 1 unit away from center so scaling in the future is predictable
     return poly;
 end
 
