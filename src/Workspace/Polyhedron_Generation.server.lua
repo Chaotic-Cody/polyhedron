@@ -9,7 +9,6 @@ local Polyops = require(game:GetService("ReplicatedStorage"):WaitForChild("polyo
 -- Testing icosahedron seed
 local planet = Icosahedron();
 planet.Position = planet.Position + Vector3.new(0, 0, 0);
-planet:Scale(1.075269);
 --planet:Scale(5);
 --planet:Draw();
 --]]
@@ -31,8 +30,18 @@ newPlanet:Scale(8);
 newPlanet:Draw();
 --]]
 
--- Testing truncate
-local newPlanet = Polyops.truncate(Polyops.dual(Polyops.truncate(planet)));
+--[[ Testing truncate
+local newPlanet = Polyops.truncate(planet);
+newPlanet:Scale(25);
+newPlanet:Draw();
+--]]
+
+-- Testing nested truncate
+local level = 2;
+local newPlanet = Polyops.truncate(planet);
+for i = 1, level-1 do
+    newPlanet = Polyops.truncate(Polyops.dual(newPlanet));
+end
 newPlanet:Scale(25);
 newPlanet:Draw();
 --]]
