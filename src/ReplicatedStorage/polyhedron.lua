@@ -25,7 +25,7 @@ local trilib = require(ReplicatedStorage:WaitForChild("TriangleModule"));
 Polyhedron = {};
 Polyhedron.__index = Polyhedron;
 
-function Polyhedron.new(faces, vertices, name, position)
+function Polyhedron.new(faces, vertices, name, position, model)
 	
 	local newPolyhedron = {};
 	setmetatable(newPolyhedron, Polyhedron);
@@ -34,6 +34,7 @@ function Polyhedron.new(faces, vertices, name, position)
 	newPolyhedron.Vertices = vertices and vertices or {};
 	newPolyhedron.Name = name and name or "";
 	newPolyhedron.Position = position and position or Vector3.new(0, 0, 0);
+	newPolyhedron.Model = model and model or nil;
 	-- newPolyhedron.Radius = radius; -- stub
 
 	-- Part metadata
@@ -85,6 +86,7 @@ end
 	and reuse parts instead of deleting/reinstancing
 --]]
 function Polyhedron:Draw()
+
 	local planetModel = Instance.new("Model");
 	planetModel.Parent = workspace;
 	planetModel.Name = "Planet";
@@ -118,7 +120,7 @@ function Polyhedron:Draw()
 		else
 			polyModel.Parent = planetModel;
 		end
-
+		
 		for j = 2, #face-1 do
 			local v1 = self.Vertices[face[1]] + self.Position;
 			local v2 = self.Vertices[face[j]] + self.Position;
@@ -127,6 +129,7 @@ function Polyhedron:Draw()
 		end
 
 	end
+
 	print("Faces: ", #self.Faces);
 	print("Vertices: ", #self.Vertices);
 
