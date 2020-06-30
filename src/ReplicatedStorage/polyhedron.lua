@@ -47,10 +47,10 @@ end
 -- Get array of face centers
 function Polyhedron:Centers()
 	local centersArray = {};
-	for i, face in pairs(self.Faces) do
+	for i, face in ipairs(self.Faces) do
 		local fcenter = Vector3.new(0, 0, 0);
 		-- average vertex coords
-		for j, vidx in pairs(face) do
+		for j, vidx in ipairs(face) do
 			fcenter = fcenter + self.Vertices[vidx];
 		end
 		centersArray[#centersArray+1] = fcenter*(1/#face);
@@ -61,9 +61,9 @@ end
 function Polyhedron:Normals()
 
 	local normalsArray = {};
-	for i, face in pairs(self.Faces) do
+	for i, face in ipairs(self.Faces) do
 		local threeFaceVectors = {};
-		for j, vidx in pairs(face) do
+		for j, vidx in ipairs(face) do
 			threeFaceVectors[#threeFaceVectors+1] = self.Vertices[vidx];
 		end
 		normalsArray[#normalsArray+1] = vmath.normal(threeFaceVectors);
@@ -75,7 +75,7 @@ end
 	scaleFactor is a reprentation of the distance from a vertex to the center of the polyhedron
 --]]
 function Polyhedron:Scale(scaleFactor)
-	for i, vert in pairs(self.Vertices) do
+	for i, vert in ipairs(self.Vertices) do
 		self.Vertices[i] = self.Vertices[i] * scaleFactor;
 	end
 end
@@ -108,7 +108,7 @@ function Polyhedron:Draw()
 
 	local centers = self:Centers();
 
-	for i, face in pairs(self.Faces) do
+	for i, face in ipairs(self.Faces) do
 
 		local polyModel = Instance.new("Model");
 		polyModel.Name = PolygonNames[#face-2];

@@ -10,7 +10,7 @@ end
 function vmath.normal(vectors)
     local normalV = Vector3.new(0, 0, 0);
     local twoFaces = {vectors[1], vectors[2]};
-    for i, v3 in pairs(vectors) do
+    for i, v3 in ipairs(vectors) do
       normalV = normalV + vmath.orthogonal(vectors[1], vectors[2], v3);
       twoFaces = {vectors[2], v3};
     end

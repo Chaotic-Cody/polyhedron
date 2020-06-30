@@ -13,7 +13,7 @@ planet.Position = planet.Position + Vector3.new(0, 150, 0);
 --planet:Draw();
 --]]
 --[[ Testing structural integrity (distance of points from center)
-for i, v in pairs(planet:Centers()) do
+for i, v in ipairs(planet:Centers()) do
     print(v.magnitude);
 end
 --]]
@@ -48,9 +48,9 @@ newPlanet:Draw();
 --[[
 local faces = newPlanet.Faces;
 local centers = newPlanet:Centers();
-for i, face in pairs(faces) do
+for i, face in ipairs(faces) do
     print("new face");
-    for j, index in pairs(face) do
+    for j, index in ipairs(face) do
         print((centers[i] - newPlanet.Vertices[index]).magnitude);
     end
 end

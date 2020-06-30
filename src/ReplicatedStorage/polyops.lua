@@ -27,7 +27,7 @@ function Polyops.kis(poly, apexdist)
     for i = 1, #poly.Faces do
         local f = poly.Faces[i];
         local v1 = "v"..tostring(f[#f]);
-        for _, v in pairs(f) do
+        for _, v in ipairs(f) do
             local v2 = "v"..tostring(v);
             if (#f == n or n == 0) then -- in case we want Kis(n) functionality later down the line
                 local apex = "apex"..tostring(i);
@@ -78,7 +78,7 @@ function Polyops.dual(poly)
     for i = 1, #poly.Faces do
         f = poly.Faces[i];
         v1 = f[#f]; -- previous vertex
-        for _, v2 in pairs(f) do
+        for _, v2 in ipairs(f) do
             -- THIS ASSUMES that no 2 faces that share an edge share it in the same orientation!
             -- which of course never happens for proper manifold meshes, so get your meshes right.
             face[v1]["v"..tostring(v2)] = tostring(i);
@@ -94,7 +94,7 @@ function Polyops.dual(poly)
     for i = 1, #poly.Faces do
         f = poly.Faces[i];
         v1 = f[#f]; -- pervious vertex
-        for _, v2 in pairs(f) do
+        for _, v2 in ipairs(f) do
             flag:newFlag(v1, face[v2]["v"..tostring(v1)], tostring(i));
             v1 = v2;
         end
