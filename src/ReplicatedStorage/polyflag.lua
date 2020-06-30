@@ -51,7 +51,7 @@ function Polyflag:newFlag(faceName, vertName1, vertName2)
     if (self.Flags[faceName] == nil) then
         self.Flags[faceName] = {};
     end
-    self.Flags[faceName][vertName1] = vertName2
+    self.Flags[faceName][vertName1] = vertName2;
 end
 --[[
     Polyflag.topoly()
@@ -63,7 +63,7 @@ function Polyflag:topoly()
     local poly = Polyhedron.new();
 
     local ctr = 1; -- first number the vertices, and store them in an array
-    for i, _ in pairs(self.Vertidxs) do
+    for i, _ in ipairs(self.Vertidxs) do
         v = self.Vertidxs[i];
         --[[
         print("this line >> ", ctr, i)
@@ -77,12 +77,12 @@ function Polyflag:topoly()
     end
 
     ctr = 1;
-    for i, _ in pairs(self.Flags) do
+    for i, _ in ipairs(self.Flags) do
         local v0;
         local face = self.Flags[i];
         poly.Faces[ctr] = {}; -- new face
         -- grab any vertex as starting point
-        for j, _ in pairs(face) do
+        for j, _ in ipairs(face) do
             v0 = face[j];
             break;
         end
@@ -99,7 +99,7 @@ function Polyflag:topoly()
         ctr = ctr + 1;
     end
     poly.Name = "Unknown Polyhedron";
-    return poly; 
+    return poly;
 end
 
 return Polyflag;
