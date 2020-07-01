@@ -8,7 +8,7 @@ local Polyops = require(game:GetService("ReplicatedStorage"):WaitForChild("polyo
 
 -- Testing icosahedron seed
 local planet = Icosahedron();
-planet.Position = planet.Position + Vector3.new(0, 150, 0);
+planet.Position = planet.Position + Vector3.new(0, 100, 0);
 --planet:Scale(5);
 --planet:Draw();
 --]]
