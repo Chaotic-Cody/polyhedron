@@ -29,7 +29,7 @@ function Polyops.kis(poly, apexdist)
         local v1 = "v"..tostring(f[#f]);
         for _, v in ipairs(f) do
             local v2 = "v"..tostring(v);
-            if (#f == n or n == 0) then -- in case we want Kis(n) functionality later down the line
+            if #f == n or n == 0 then -- in case we want Kis(n) functionality later down the line
                 local apex = "apex"..tostring(i);
                 local fname = tostring(i)..tostring(v1);
                 -- new vertices in centers of face
@@ -103,7 +103,7 @@ function Polyops.dual(poly)
     local dpoly = flag:topoly(); -- build topological dual from flags
     dpoly.Position = poly.Position;
 
-    if (string.sub(poly.Name, 1, 1) ~= "d") then
+    if string.sub(poly.Name, 1, 1) ~= "d" then
         dpoly.Name = "d"..poly.Name;
     else
         dpoly.Name = string.sub(poly.Name, 2)
