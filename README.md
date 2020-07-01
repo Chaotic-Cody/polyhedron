@@ -1,5 +1,10 @@
+# polyhedron
+Experimenting with Goldberg polyhedra and porting portions of Polyhedronism (Levskaya) to Rblx.Lua.
 
-Here I outline my approach to generating Goldberg polyhedra for use as planets, asteroids, and other celestial phenomena.
+## Progression of development
+### Starting out
+I adapted a lot of code from Levskaya's polyHédronisme, including the creation of Polyhedron objects and Conway's polyhedron operations. This created the base for drawing the objects in Roblox.
+
 Implementing preliminary vertex and face center drawing.
 
 Green = vertex
@@ -25,6 +30,11 @@ At this point, triangle-based drawing seemed superior to single part-based drawi
 The above example is a truncated icosahedron, but by using the dual and triakis operations, you can create even more complex shapes, like a T=9 Goldberg Polyhedron.
 
 ![](https://i.imgur.com/vSbeDGl.png)
+
+## Inspiration
+Balancing Monkey Games - 
+Before We Leave -
+https://www.youtube.com/watch?v=m-A0yXP50d4
 
 ## Resources & credits
 Anselm Levskaya - 
