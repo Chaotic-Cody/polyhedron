@@ -11,7 +11,7 @@ function icosahedron()
         {1, 6, 2}, {2, 6, 8}, {2, 8, 7}, {2, 7, 3},
         {3, 7, 9}, {3, 9, 4}, {4, 9, 10}, {4, 10, 5},
         {5, 10, 11}, {5, 11, 6}, {6, 11, 8}, {7, 8, 12},
-        {7, 12, 9}, {8, 11, 12}, {9, 12, 10}, {10, 12, 11}
+        {7, 12, 9}, {8, 11, 12}, {9, 12, 10}, {10, 12, 11},
     };
     local vertices = {
         Vector3.new(0,0,1.176), Vector3.new(1.051,0,0.526),
@@ -19,7 +19,7 @@ function icosahedron()
         Vector3.new(-0.851,-0.618,0.526), Vector3.new(0.325,-1.0,0.526),
         Vector3.new(0.851,0.618,-0.526), Vector3.new(0.851,-0.618,-0.526),
         Vector3.new(-0.325,1.0,-0.526), Vector3.new(-1.051,0,-0.526),
-        Vector3.new(-0.325,-1.0,-0.526), Vector3.new(0,0,-1.176)
+        Vector3.new(-0.325,-1.0,-0.526), Vector3.new(0,0,-1.176),
     };
     local name = "I";
     local poly = Polyhedron.new(faces, vertices, name);

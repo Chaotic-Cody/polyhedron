@@ -15,7 +15,7 @@ local PolygonNames = {
     "Heptagon",
     "Octagon",
     "Nonagon",
-    "Decagon"
+    "Decagon",
 }
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage");
