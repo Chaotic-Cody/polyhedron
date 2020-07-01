@@ -63,7 +63,7 @@ function Polyflag:topoly()
     local poly = Polyhedron.new();
 
     local ctr = 1; -- first number the vertices, and store them in an array
-    for i, _ in ipairs(self.Vertidxs) do
+    for i, _ in pairs(self.Vertidxs) do
         v = self.Vertidxs[i];
         --[[
         print("this line >> ", ctr, i)
@@ -77,12 +77,12 @@ function Polyflag:topoly()
     end
 
     ctr = 1;
-    for i, _ in ipairs(self.Flags) do
+    for i, _ in pairs(self.Flags) do
         local v0;
         local face = self.Flags[i];
         poly.Faces[ctr] = {}; -- new face
         -- grab any vertex as starting point
-        for j, _ in ipairs(face) do
+        for j, _ in pairs(face) do
             v0 = face[j];
             break;
         end
